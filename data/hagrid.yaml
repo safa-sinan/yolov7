@@ -1,0 +1,6 @@
+train: /content/yolov7/hagrid_yolo_format/train/images
+val: /content/yolov7/hagrid_yolo_format/val/images
+test: /content/yolov7/hagrid_yolo_format/test/images
+
+nc: 4  # Number of classes in HaGRID
+names: ['grabbing', 'point', 'dislike', 'no_gesture']
