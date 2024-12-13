@@ -1,0 +1,133 @@
+# Raspberry Pi Object Detection & Arduino Control Project
+
+## **Overview**
+This project uses a Raspberry Pi equipped with a USB camera to perform real-time object hand gesture detection and recognition using the YOLOv7 model. Detected objects are classified by their IDs and sent to an Arduino connected to a Braccio robotic arm for specific robotic movements IR sensor is used for safety.
+
+---
+
+## **Project Structure**
+```
+/project-folder
+│── yolov7/                      # YOLOv7 repository and models
+│   ├── best.pt                 # Trained YOLOv7 model
+│   ├── detect_pi_ard.py  # Main detection and transfer script
+│   └── braccio_grap_place.ino  # arduino code
+│── README.md                  # Project documentation
+```
+
+---
+
+## **Setup Instructions**
+
+### **1. Hardware Requirements:**
+- Raspberry Pi 4 model B
+- USB Camera
+- Arduino Board (e.g., Arduino Uno)
+- Braccio Robotic Arm
+- USB Cable (for Arduino to Raspberry Pi connection)
+
+### **2. Software Requirements:**
+- Raspberry Pi OS
+- Python 3.9 or later
+- YOLOv7 Repository
+
+---
+
+## **Installation Guide**
+
+1. **Clone the YOLOv7 Repository:**
+   ```bash
+   git clone https://github.com/safa-sinan/yolov7.git
+   cd yolov7
+   ```
+
+2. **Create a Virtual Environment:**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   pip install opencv-python torch torchvision
+   ```
+
+4. **Transfer Your Trained Model:**
+   - Copy `best.pt` to the `yolov7` folder.
+
+5. **Run the Detection Script:**
+   ```bash
+   python3 .py --weights best.pt --source 0 --device cpu --conf-thres 0.25 --img-size 640 --view-img
+   ```
+
+---
+
+## **Arduino Setup**
+
+1. **Connect the Arduino to the Raspberry Pi:**
+   - Use a USB cable and verify the serial port (e.g., `/dev/ttyUSB0`).
+
+2. **Upload Arduino Code:**
+   - Use the Arduino IDE to upload the provided Braccio control code.
+
+---
+
+## **Usage Instructions**
+- **Start the Virtual Environment:**
+  ```bash
+  source venv/bin/activate
+  ```
+
+- **Run the Detection Script:**
+  ```bash
+  python3 detect_pi_ard.py --weights best.pt --source 0 --device cpu --conf-thres 0.25 --img-size 640 --view-img
+  ```
+
+- **Stop the Virtual Environment:**
+  ```bash
+  deactivate
+  ```
+
+---
+
+## **Features**
+- Real-time object detection using a USB camera.
+- Automatic object class transfer to Arduino.
+- Braccio robotic arm control based on detected object classes.
+
+---
+
+## **Troubleshooting**
+
+1. **Check Camera Connection:**
+   ```bash
+   ls /dev/video*
+   ```
+
+2. **Check Arduino Port:**
+   ```bash
+   dmesg | grep tty
+   ```
+
+3. **Reinstall Missing Dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## **Future Improvements**
+- Enhance detection speed using hardware acceleration.
+- Implement additional robotic actions based on new object classes.
+
+---
+
+## **Authors**
+- Project Developer: safa alsinan
+
+---
+
+## **License**
+This project is licensed under the MIT License. See `LICENSE` for more details.
+
